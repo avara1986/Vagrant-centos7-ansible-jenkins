@@ -1,0 +1,7 @@
+[jenkins-slave]
+default ansible_ssh_host=192.168.100.3 ansible_ssh_user=vagrant
+
+[dbservers]
+default ansible_ssh_host=192.168.100.3 ansible_ssh_user=vagrant
+
+

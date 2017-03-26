@@ -1,0 +1,37 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: Download packages
+  hosts: jenkins-slave
+  tasks:
+    - name: install jdk rpm
+      become: true
+      become_method: sudo
+      yum: name={{ item }}
+           state=latest
+      become: true
+      with_items:
+        - java-1.8.0-openjdk
+        - wget
+        
+    - name: add Jenkins to yum
+      become: true
+      become_method: sudo
+      shell: "wget -O /etc/yum.repos.d/jenkins.repo http://jenkins-ci.org/redhat/jenkins.repo"
+    - name: add jenkins key
+      become: true
+      become_method: sudo
+      shell: "rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key"
+    - name: install jenkins rpm
+      become: true
+      become_method: sudo
+      yum: name=jenkins
+           state=latest
+
+- name: start Jenkins
+  hosts: jenkins-slave
+  tasks:
+  - name: start Jenkins
+    become: true
+    become_method: sudo
+    shell: "service jenkins start"
