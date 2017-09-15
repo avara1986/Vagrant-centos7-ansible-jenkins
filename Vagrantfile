@@ -1,9 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# ##############################################################
-# Run Tuenti with Vagrant
-# ##############################################################
 Vagrant.configure(2) do |config|
   config.vm.define "web" do |web|
     web.vm.box = "centos/7"
